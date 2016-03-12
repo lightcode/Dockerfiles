@@ -1,0 +1,5 @@
+#!/bin/bash
+
+exec 2>&1
+
+exec chpst -u www-data /usr/bin/php /app/update.php

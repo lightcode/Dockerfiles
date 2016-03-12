@@ -16,4 +16,7 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
 
 COPY boot-scripts.d /etc/boot-scripts.d
 
-RUN find /etc/boot-scripts.d -name "*.sh" -type f -exec chmod +x {} \;
+COPY service /etc/service
+
+RUN find /etc/boot-scripts.d -name "*.sh" -type f -exec chmod +x {} \; \
+    && chmod u+x /etc/service/ttrss/run

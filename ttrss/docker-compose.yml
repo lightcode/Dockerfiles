@@ -6,13 +6,11 @@ web:
     - "8080:80"
   links:
     - mysql
-  volumes:
-    - .:/code
   environment:
-    - TTRSS_DB_HOST=mysql
     - TTRSS_DB_USER=ttrss
     - TTRSS_DB_NAME=ttrss
     - TTRSS_DB_PASS=ttrsspassword
+    - TTRSS_FEED_CRYPT_KEY=@HCcMWQ+U_RnSI-HZO76pUJr
 mysql:
   image: mysql
   environment:

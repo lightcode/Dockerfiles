@@ -7,7 +7,7 @@ cat > /app/config.php <<EOF
 // *******************************************
 
 define('DB_TYPE', '${TTRSS_DB_TYPE:-mysql}');
-define('DB_HOST', '${TTRSS_DB_HOST}');
+define('DB_HOST', '${TTRSS_DB_HOST:-$MYSQL_PORT_3306_TCP_ADDR}');
 define('DB_USER', '${TTRSS_DB_USER}');
 define('DB_NAME', '${TTRSS_DB_NAME}');
 define('DB_PASS', '${TTRSS_DB_PASS}');

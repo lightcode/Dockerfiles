@@ -4,6 +4,7 @@ This is an Docker image of the webapp [Tiny Tiny RSS](http://tt-rss.org).
 
 The version of tt-rss is pinned into the Dockerfile to try to have a stable release.
 
+The Docker image includes the [Feedly theme](https://github.com/levito/tt-rss-feedly-theme).
 
 
 ## Get the image

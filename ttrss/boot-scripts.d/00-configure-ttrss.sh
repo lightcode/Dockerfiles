@@ -11,7 +11,7 @@ define('DB_HOST', '${TTRSS_DB_HOST}');
 define('DB_USER', '${TTRSS_DB_USER}');
 define('DB_NAME', '${TTRSS_DB_NAME}');
 define('DB_PASS', '${TTRSS_DB_PASS}');
-define('DB_PORT', '${TTRSS_DB_PORT}');
+define('DB_PORT', '${TTRSS_DB_PORT:-3306}');
 
 define('MYSQL_CHARSET', 'UTF8');
 // Connection charset for MySQL. If you have a legacy database and/or experience
@@ -208,3 +208,5 @@ EOF
 
 chown www-data:www-data /app/config.php
 chmod 0400 /app/config.php
+
+/usr/bin/chpst -u www-data /tmp/initialize-database.php

@@ -1,0 +1,22 @@
+---
+
+web:
+  build: .
+  ports:
+    - "8080:80"
+  links:
+    - mysql
+  volumes:
+    - .:/code
+  environment:
+    - TTRSS_DB_HOST=mysql
+    - TTRSS_DB_USER=ttrss
+    - TTRSS_DB_NAME=ttrss
+    - TTRSS_DB_PASS=ttrsspassword
+mysql:
+  image: mysql
+  environment:
+    - MYSQL_ROOT_PASSWORD=rootpassword
+    - MYSQL_DATABASE=ttrss
+    - MYSQL_USER=ttrss
+    - MYSQL_PASSWORD=ttrsspassword

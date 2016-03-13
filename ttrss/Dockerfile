@@ -18,5 +18,8 @@ COPY boot-scripts.d /etc/boot-scripts.d
 
 COPY service /etc/service
 
+COPY initialize-database.php /tmp/initialize-database.php
+
 RUN find /etc/boot-scripts.d -name "*.sh" -type f -exec chmod +x {} \; \
-    && chmod u+x /etc/service/ttrss/run
+    && chmod u+x /etc/service/ttrss/run \
+    && chmod u+x /tmp/initialize-database.php

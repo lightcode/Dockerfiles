@@ -1,8 +1,21 @@
-# Tiny Tiny RSS docker image
+# Tiny Tiny RSS Docker image
 
-The website of the original project : http://tt-rss.org.
+This is an Docker image of the webapp [Tiny Tiny RSS](http://tt-rss.org).
 
-Docker Hub page: https://hub.docker.com/r/lightcode/ttrss/.
+The version of tt-rss is pinned into the Dockerfile to try to have a stable release.
+
+
+
+## Get the image
+
+You can pull the image from the Docker Hub:
+
+```
+$ docker pull lightcode/ttrss
+```
+
+You can also build the image by cloning this repository and make a `docker build`.
+
 
 
 ## Configuration
@@ -19,9 +32,11 @@ You can configure some values with environment variables:
 * `TTRSS_FEED_CRYPT_KEY` : key used for encryption of passwords for password-protected feeds in the database. A string of 24 random characters. If left blank, encryption is not used (requires mcrypt functions)
 
 
+
 ## Runnig webapp
 
 You can use [docker-compose](https://docs.docker.com/compose/) and use the `docker-compose.yml` file provided for running tt-rss.
+
 
 
 ## Default credential

@@ -1,16 +1,9 @@
-FROM lightcode/http-php5
+FROM lightcode/nginx-php:php7.0
 
 MAINTAINER lightcode@gmx.com
 
 ARG TTRSS_COMMIT=399678a14e98cefd61f228b11e20fa711ea6d55b
 ARG THEME_FEEDLY_COMMIT=3a9ed0d3dac0319680000f97c4ee4a78c36d7d49
-
-RUN export DEBIAN_FRONTEND=noninteractive; \
-    apt-get update \
-    && apt-get install -y -q --no-install-recommends \
-        curl \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN mkdir -p /app \
     && curl -s https://tt-rss.org/gitlab/fox/tt-rss/repository/archive.tar.gz?ref=${TTRSS_COMMIT} | tar xz -C /tmp \

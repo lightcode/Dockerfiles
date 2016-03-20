@@ -1,0 +1,26 @@
+---
+
+web:
+  build: .
+  ports:
+    - "80:80"
+  links:
+    - mysql
+  environment:
+    - WALLABAG_USER=wallabag
+    - WALLABAG_PASSWORD=wallabag
+
+mysql:
+  image: mysql
+  environment:
+    - MYSQL_ROOT_PASSWORD=rootpassword
+    - MYSQL_DATABASE=wallabag
+    - MYSQL_USER=wallabag
+    - MYSQL_PASSWORD=wallabag
+
+phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  ports:
+    - "8080:80"
+  links:
+    - mysql:db

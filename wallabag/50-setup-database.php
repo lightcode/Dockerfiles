@@ -1,22 +1,7 @@
 #!/usr/bin/php
 <?php
 
-function recursiveRmDir($dir) {
-    $iterator = new RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir, \FilesystemIterator::SKIP_DOTS), \RecursiveIteratorIterator::CHILD_FIRST);
-    foreach ($iterator as $filename => $fileInfo) {
-        if ($fileInfo->isDir()) {
-            rmdir($filename);
-        } else {
-            unlink($filename);
-        }
-    }
-
-    rmdir($dir);
-}
-
-
-
-define('MYSQL_SCHEMA', '/app/install/mysql.sql');
+define('MYSQL_SCHEMA', '/tmp/init-mysql.sql');
 
 $salt     = getenv('WALLABAG_SALT');
 $host     = getenv('WALLABAG_HOST') ?: getenv('MYSQL_PORT_3306_TCP_ADDR');
@@ -50,12 +35,7 @@ printf("Connection to mysql with host=%s user=%s database=%s\n", $host, $user, $
 $mysqli = new mysqli($host, $user, $passwd, $database);
 
 if ($mysqli->connect_errno) {
-    echo "Sorry, this website is experiencing problems.";
-
-    echo "Error: Failed to make a MySQL connection, here is why: \n";
-    echo "Errno: " . $mysqli->connect_errno . "\n";
-    echo "Error: " . $mysqli->connect_error . "\n";
-
+    printf("[FATAL] Cannot connect to the database: [%d] %s\n", $mysqli->connect_errno, $mysqli->connect_error);
     exit(1);
 }
 
@@ -73,22 +53,44 @@ foreach ($lines as $line) {
 
 // Add default user
 
-$default_user = "wallabag";
-$default_pass = "wallabag";
-$default_email = "";
-$salted_password = sha1($default_pass . $default_user . $salt);
+$row = $mysqli->query("SELECT COUNT(*) FROM `users`")->fetch_row();
 
-$stmt = $mysqli->prepare('INSERT INTO users (id, username, password, name, email) VALUES (1, ?, ?, ?, ?)');
-$stmt->bind_param('ssss', $default_user, $salted_password, $default_user, $default_email);
-$stmt->execute();
-$stmt->close();
+if ((int)$row[0] === 0) {
+    $default_user = "wallabag";
+    $default_pass = "wallabag";
+    $default_email = "";
+    $salted_password = sha1($default_pass . $default_user . $salt);
+
+    // Add user
+    $stmt = $mysqli->prepare('INSERT INTO users (username, password, name, email) VALUES (?, ?, ?, ?)');
+    $stmt->bind_param('ssss', $default_user, $salted_password, $default_user, $default_email);
+    if ($stmt->execute()) {
+        $user_id = (int)$mysqli->insert_id;
+    } else {
+        printf("[FATAL] Cannot create user: %s\n", $mysqli->error);
+        exit(1);
+    }
+    $stmt->close();
+
+    // Configure the user profile
+    $user_config = [
+        'language' => 'en_EN.utf8',
+        'pager' => '10',
+        'theme' => 'baggy'
+    ];
+
+    $stmt = $mysqli->prepare('INSERT INTO users_config (user_id, name, value) VALUES (?, ?, ?)');
+
+    foreach ($user_config as $name => $value) {
+        $stmt->bind_param('iss', $user_id, $name, $value);
+        if (!$stmt->execute()) {
+            printf("[WARN] Cannot add parameter '%s' for user '%s': %s\n", $name, $default_user, $mysqli->error);
+        }
+    }
+
+    $stmt->close();
+}
 
 $mysqli->close();
-
-
-
-// Clean installation
-
-recursiveRmDir("/app/install");
 
 ?>

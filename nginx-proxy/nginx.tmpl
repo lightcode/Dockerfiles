@@ -97,19 +97,8 @@ upstream {{ $host }} {
 {{/* Get the first cert name defined by containers w/ the same vhost */}}
 {{ $certName := (first (groupByKeys $containers "Env.CERT_NAME")) }}
 
-{{ $vhostCert := "" }}
-
-{{ if parseBool (or ($.Env.ENABLE_SSL_WILDCARD) "1") }}
-{{/* Get the best matching cert  by name for the vhost. */}}
-{{ $vhostCert := (closest (dir "/etc/nginx/certs") (printf "%s.crt" $host))}}
-
-{{/* vhostCert is actually a filename so remove any suffixes since they are added later */}}
-{{ $vhostCert := replace $vhostCert ".crt" "" -1 }}
-{{ $vhostCert := replace $vhostCert ".key" "" -1 }}
-{{ else }}
 {{/* The certificate has the same name as the vhost */}}
 {{ $vhostCert := $host }}
-{{ end }}
 
 {{/* Use the cert specifid on the container or fallback to the best vhost match */}}
 {{ $cert := (coalesce $certName $vhostCert) }}

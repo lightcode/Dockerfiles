@@ -9,6 +9,7 @@ web:
   environment:
     - WALLABAG_USER=wallabag
     - WALLABAG_PASSWORD=wallabag
+    - WALLABAG_SALT=QUMIFixi3m4bq46r9HuIJyG2tGI5QufucPq
 
 mysql:
   image: mysql

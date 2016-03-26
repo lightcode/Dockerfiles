@@ -1,23 +1,34 @@
 ---
 
-web:
-  build: .
-  ports:
-    - "8080:80"
-  links:
-    - mysql
-  environment:
-    - TTRSS_DB_USER=ttrss
-    - TTRSS_DB_NAME=ttrss
-    - TTRSS_DB_PASS=ttrsspassword
-    - TTRSS_FEED_CRYPT_KEY=@HCcMWQ+U_RnSI-HZO76pUJr
-  volumes:
-    - "/tmp/ttrss/cache:/app/cache"
-    - "/tmp/ttrss/feeds-icons:/app/feeds-icons"
-mysql:
-  image: mysql
-  environment:
-    - MYSQL_ROOT_PASSWORD=rootpassword
-    - MYSQL_DATABASE=ttrss
-    - MYSQL_USER=ttrss
-    - MYSQL_PASSWORD=ttrsspassword
+version: '2'
+services:
+  mysql:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=ttrss
+      - MYSQL_USER=ttrss
+      - MYSQL_PASSWORD=ttrsspassword
+
+  ttrss:
+    build: .
+    image: lightcode/ttrss
+    ports:
+      - "8080:80"
+    links:
+      - mysql
+    environment:
+      - TTRSS_DB_HOST=mysql
+      - TTRSS_DB_USER=ttrss
+      - TTRSS_DB_NAME=ttrss
+      - TTRSS_DB_PASS=ttrsspassword
+      - TTRSS_FEED_CRYPT_KEY=@HCcMWQ+U_RnSI-HZO76pUJr
+    volumes:
+      - "ttrss_cache:/app/cache"
+      - "ttrss_icons:/app/feeds-icons"
+
+volumes:
+  ttrss_cache:
+    driver: local
+  ttrss_icons:
+    driver: local

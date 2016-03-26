@@ -206,7 +206,7 @@ define('CONFIG_VERSION', 26);
 ?>
 EOF
 
-mkdir /app/cache/{images,upload,export,js}
+mkdir -p /app/cache/{images,upload,export,js}
 
 chown -R www-data:www-data /app
 chmod 0400 /app/config.php

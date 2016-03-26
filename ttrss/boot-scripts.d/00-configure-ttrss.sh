@@ -209,5 +209,4 @@ EOF
 chown www-data:www-data /app/config.php
 chmod 0400 /app/config.php
 
-/usr/bin/chpst -u www-data /tmp/initialize-database.php
-rm /tmp/initialize-database.php
+/usr/bin/chpst -u www-data /scripts/initialize-database.php

@@ -16,12 +16,12 @@ RUN curl -s https://codeload.github.com/levito/tt-rss-feedly-theme/tar.gz/${THEM
 
 COPY boot-scripts.d /etc/boot-scripts.d
 COPY service /etc/service
-COPY initialize-database.php /tmp/initialize-database.php
+COPY initialize-database.php /scripts/initialize-database.php
 
 RUN chown -R www-data:www-data /app \
     && find /etc/boot-scripts.d -name "*.sh" -type f -exec chmod +x {} \; \
     && chmod u+x /etc/service/ttrss/run \
-    && chmod u+x /tmp/initialize-database.php
+    && chmod u+x /scripts/initialize-database.php
 
 VOLUME "/app/feed-icons"
 VOLUME "/app/cache"

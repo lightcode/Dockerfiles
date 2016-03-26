@@ -206,7 +206,10 @@ define('CONFIG_VERSION', 26);
 ?>
 EOF
 
-chown www-data:www-data /app/config.php
+mkdir /app/cache/{images,upload,export,js}
+
+chown -R www-data:www-data /app
 chmod 0400 /app/config.php
+chmod 0700 /app/feed-icons /app/cache
 
 /usr/bin/chpst -u www-data /scripts/initialize-database.php

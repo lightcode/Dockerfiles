@@ -11,6 +11,9 @@ web:
     - TTRSS_DB_NAME=ttrss
     - TTRSS_DB_PASS=ttrsspassword
     - TTRSS_FEED_CRYPT_KEY=@HCcMWQ+U_RnSI-HZO76pUJr
+  volumes:
+    - "/tmp/ttrss/cache:/app/cache"
+    - "/tmp/ttrss/feeds-icons:/app/feeds-icons"
 mysql:
   image: mysql
   environment:

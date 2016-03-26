@@ -22,3 +22,6 @@ RUN chown -R www-data:www-data /app \
     && find /etc/boot-scripts.d -name "*.sh" -type f -exec chmod +x {} \; \
     && chmod u+x /etc/service/ttrss/run \
     && chmod u+x /tmp/initialize-database.php
+
+VOLUME "/app/feed-icons"
+VOLUME "/app/cache"

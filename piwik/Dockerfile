@@ -14,3 +14,5 @@ RUN export DEBIAN_FRONTEND=nonintieractive; \
     && curl -Lso /tmp/GeoIPCity.dat.gz http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz \
     && gunzip /tmp/GeoIPCity.dat.gz \
     && rm -rf /tmp/*
+
+VOLUME /app/config

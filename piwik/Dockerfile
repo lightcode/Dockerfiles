@@ -4,11 +4,8 @@ MAINTAINER lightcode@gmx.com
 
 ARG PIWIK_VERSION=2.16.2
 
-RUN export DEBIAN_FRONTEND=nonintieractive; \
-    apt-get update -q \
-    && apt-get install -qy --no-install-recommends unzip \
-    && curl -Lso /tmp/piwik.zip https://builds.piwik.org/piwik.zip \
-    && unzip -qd /tmp /tmp/piwik.zip \
+RUN curl -Lso /tmp/piwik.tar.gz https://builds.piwik.org/piwik-${PIWIK_VERSION}.tar.gz \
+    && tar xf /tmp/piwik.tar.gz -C /tmp \
     && mv /tmp/piwik /app \
     && chown -R www-data:www-data /app \
     && curl -Lso /tmp/GeoIPCity.dat.gz http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz \

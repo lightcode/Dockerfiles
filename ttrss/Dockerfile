@@ -2,15 +2,15 @@ FROM lightcode/nginx-php:php7.0
 
 MAINTAINER lightcode@gmx.com
 
-ARG TTRSS_COMMIT=399678a14e98cefd61f228b11e20fa711ea6d55b
-ARG THEME_FEEDLY_COMMIT=3a9ed0d3dac0319680000f97c4ee4a78c36d7d49
+ARG TTRSS_COMMIT=48007463861d8db8b2b79c2f4f54e0564edb0ec0
+ARG THEME_FEEDLY_COMMIT=0fcd9a4edb0dcaa7da50c0fa9f0809bf2dbb5942
 
 RUN mkdir -p /app \
-    && curl -s https://tt-rss.org/gitlab/fox/tt-rss/repository/archive.tar.gz?ref=${TTRSS_COMMIT} | tar xz -C /tmp \
+    && curl -Lv "http://tt-rss.org/gitlab/fox/tt-rss/repository/archive.tar.gz?ref=${TTRSS_COMMIT}" | tar xz -C /tmp \
     && mv /tmp/tt-rss.git/* /app \
     && rm -rf /tmp/tt-rss.git /app/install /app/config.php-dist
 
-RUN curl -s https://codeload.github.com/levito/tt-rss-feedly-theme/tar.gz/${THEME_FEEDLY_COMMIT} | tar xz -C /tmp \
+RUN curl -Lv https://github.com/levito/tt-rss-feedly-theme/archive/${THEME_FEEDLY_COMMIT}.tar.gz | tar xz -C /tmp \
     && mv /tmp/tt-rss-feedly-theme-*/feedly.css /tmp/tt-rss-feedly-theme-*/feedly /app/themes \
     && rm -rf /tmp/tt-rss-feedly-theme-*
 

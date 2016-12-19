@@ -1,9 +1,7 @@
 FROM lightcode/nginx-php:php7.0
 
-MAINTAINER lightcode@gmx.com
-
-ARG TTRSS_COMMIT=48007463861d8db8b2b79c2f4f54e0564edb0ec0
-ARG THEME_FEEDLY_COMMIT=0fcd9a4edb0dcaa7da50c0fa9f0809bf2dbb5942
+ARG TTRSS_COMMIT=73c4e7ddf2118d6cbb76491fc52dded208175894
+ARG THEME_FEEDLY_COMMIT=07f2973b82e47ea8ee4771e089a608495c89b5c9
 
 RUN mkdir -p /app \
     && curl -Lv "http://tt-rss.org/gitlab/fox/tt-rss/repository/archive.tar.gz?ref=${TTRSS_COMMIT}" | tar xz -C /tmp \
@@ -19,7 +17,7 @@ COPY service /etc/service
 COPY initialize-database.php /scripts/initialize-database.php
 
 RUN chown -R www-data:www-data /app \
-    && find /etc/boot-scripts.d -name "*.sh" -type f -exec chmod +x {} \; \
+    && find /etc/boot-scripts.d -name "*.sh" -type f -exec chmod +x {} + \
     && chmod u+x /etc/service/ttrss/run \
     && chmod u+x /scripts/initialize-database.php
 

@@ -1,7 +1,5 @@
 FROM lightcode/nginx-php:php7.0
 
-MAINTAINER lightcode@gmx.com
-
 ARG PIWIK_VERSION=2.16.2
 
 RUN curl -Lso /tmp/piwik.tar.gz https://builds.piwik.org/piwik-${PIWIK_VERSION}.tar.gz \

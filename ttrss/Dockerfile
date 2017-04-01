@@ -1,7 +1,7 @@
 FROM lightcode/nginx-php:php7.0
 
-ARG TTRSS_COMMIT=73c4e7ddf2118d6cbb76491fc52dded208175894
-ARG THEME_FEEDLY_COMMIT=07f2973b82e47ea8ee4771e089a608495c89b5c9
+ARG TTRSS_COMMIT
+ARG THEME_FEEDLY_COMMIT
 
 RUN mkdir -p /app \
     && curl -Lv "http://tt-rss.org/gitlab/fox/tt-rss/repository/archive.tar.gz?ref=${TTRSS_COMMIT}" | tar xz -C /tmp \

@@ -1,4 +1,4 @@
-FROM lightcode/base
+FROM lightcode/base-runit
 
 RUN export DEBIAN_FRONTEND=nonintieractive; \
     apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 \

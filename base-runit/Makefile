@@ -1,4 +1,4 @@
-REPO = lightcode/base
+REPO = lightcode/base-runit
 
 all: build
 

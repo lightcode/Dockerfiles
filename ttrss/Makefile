@@ -8,6 +8,8 @@ all: build
 
 build:
 	docker build \
+		--pull \
+		--rm \
 		--build-arg TTRSS_COMMIT=$(TTRSS_COMMIT) \
 		--build-arg THEME_FEEDLY_COMMIT=$(THEME_FEEDLY_COMMIT) \
 		-t $(REPO):$(VERSION) .

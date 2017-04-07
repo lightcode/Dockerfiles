@@ -4,7 +4,11 @@ VERSION = 3.0.3
 all: build
 
 build:
-	docker build --build-arg VERSION=$(VERSION) -t $(REPO):$(VERSION) .
+	docker build \
+		--pull \
+		--rm \
+		--build-arg VERSION=$(VERSION) \
+		-t $(REPO):$(VERSION) .
 
 release:
 	docker push $(REPO):$(VERSION)

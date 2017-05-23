@@ -12,7 +12,7 @@ services:
 
   ttrss:
     build: .
-    image: lightcode/ttrss
+    image: lightcode/ttrss:20170523
     ports:
       - "8080:80"
     links:
@@ -24,8 +24,8 @@ services:
       - TTRSS_DB_PASS=ttrsspassword
       - TTRSS_FEED_CRYPT_KEY=@HCcMWQ+U_RnSI-HZO76pUJr
     volumes:
-      - "ttrss_cache:/app/cache"
-      - "ttrss_icons:/app/feeds-icons"
+      - "ttrss_cache:/var/www/cache"
+      - "ttrss_icons:/var/www/feeds-icons"
 
 volumes:
   ttrss_cache:

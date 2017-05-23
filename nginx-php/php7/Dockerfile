@@ -27,6 +27,7 @@ COPY files /
 
 RUN chmod u+x /etc/service/nginx/run \
     && chmod u+x /etc/service/php7-fpm/run \
-    && find /etc/boot-scripts.d -name "*.sh" -type f -exec chmod +x {} +
+    && find /etc/boot-scripts.d -name "*.sh" -type f -exec chmod +x {} + \
+    && mkdir /var/www
 
 EXPOSE 80

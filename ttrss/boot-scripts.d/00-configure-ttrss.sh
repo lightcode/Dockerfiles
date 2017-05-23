@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat > /app/config.php <<EOF
+cat > /var/www/config.php <<EOF
 <?php
 // *******************************************
 // *** Database configuration (important!) ***
@@ -206,10 +206,10 @@ define('CONFIG_VERSION', 26);
 ?>
 EOF
 
-mkdir -p /app/cache/{images,upload,export,js}
+mkdir -p /var/www/cache/{images,upload,export,js}
 
-chown -R www-data:www-data /app
-chmod 0400 /app/config.php
-chmod 0700 /app/feed-icons /app/cache
+chown -R www-data:www-data /var/www
+chmod 0400 /var/www/config.php
+chmod 0700 /var/www/feed-icons /var/www/cache
 
 /usr/bin/chpst -u www-data /scripts/initialize-database.php

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-exec 2>&1
-
-exec chpst -u www-data /var/www/update.php --daemon
